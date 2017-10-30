@@ -30,7 +30,7 @@ before_cache:
   - sudo mkdir $HOME/lxc && sudo tar cf $HOME/lxc/cache.tar /var/cache/lxc/ && sudo chown $USER. $HOME/lxc/cache.tar
 before_install:
   - sudo apt-get -qq update
-  - sudo apt-get install -y expect-dev nmap
+  - sudo apt-get install -y expect-dev
 install:
   - sudo tar xf $HOME/lxc/cache.tar -C / || true
   - if [ "$ANSIBLE_VERSION" ]; then pip install $ANSIBLE_VERSION; else pip install ansible; fi
