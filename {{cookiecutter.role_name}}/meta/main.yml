@@ -1,0 +1,29 @@
+galaxy_info:
+  author: {{ cookiecutter.author }}
+  description: |
+    {{ cookiecutter.description }}
+
+  license: BSD-3-Clause-Clear
+
+  min_ansible_version: {{ cookiecutter.min_ansible_version }}
+
+  platforms:
+    {%- for os, versions in cookiecutter.platforms|dictsort %}
+    - name: {{ os }}
+      versions:
+        {%- for version in versions %}
+        - {{ version }}
+        {%- endfor %}
+    {%- endfor %}
+
+  galaxy_tags:
+  {%- for tag in cookiecutter.galaxy_tags %}
+    - {{ tag }}
+  {%- else %} []
+  {%- endfor %}
+
+  dependencies:
+  {%- for dependency in cookiecutter.dependencies %}
+    - {{ dependency }}
+  {%- else %} []
+  {%- endfor %}

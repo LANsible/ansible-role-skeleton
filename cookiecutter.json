@@ -1,0 +1,30 @@
+{
+  "author": "Wilmar den Ouden",
+  "github_user": "wilmardo",
+  "role_name": "role",
+  "description": "Role to install xxxxx!",
+  "min_ansible_version": "2.2",
+  "platforms": {
+    "CentOS": [
+      "7",
+      "6"
+    ],
+    "Fedora": [
+      "27",
+      "26"
+    ],
+    "Debian": [
+      "stretch",
+      "jessie"
+    ],
+    "Ubuntu": [
+      "xenial",
+      "trusty"
+    ]
+  },
+  "galaxy_tags": {},
+  "dependencies": {},
+  "year": "2018",
+  "version" : "0.1.0",
+  "download_dir": "~"
+}
