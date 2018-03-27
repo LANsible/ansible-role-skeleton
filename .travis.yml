@@ -1,0 +1,18 @@
+---
+dist: trusty
+language: python
+sudo: required
+cache:
+  pip: true
+
+install:
+  - pip install molecule cookiecutter
+
+script:
+  - cookiecutter .
+  - cd role && molecule --default-config lint
+
+notifications:
+  email:
+    on_failure: change
+    on_success: never
