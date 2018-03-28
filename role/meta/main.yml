@@ -1,0 +1,31 @@
+---
+galaxy_info:
+  author: Wilmar den Ouden
+  description: |
+    Role to install xxxxx!
+
+  license: BSD-3-Clause-Clear
+
+  min_ansible_version: 2.2
+
+  platforms:
+    - name: CentOS
+      versions:
+        - 7
+        - 6
+    - name: Debian
+      versions:
+        - stretch
+        - jessie
+    - name: Fedora
+      versions:
+        - 27
+        - 26
+    - name: Ubuntu
+      versions:
+        - xenial
+        - trusty
+
+  galaxy_tags: []
+
+  dependencies: []
