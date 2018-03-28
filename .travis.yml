@@ -9,8 +9,8 @@ install:
   - pip install molecule cookiecutter
 
 script:
-  - cookiecutter .
-  - cd role && molecule --default-config lint
+  - cookiecutter --no-input .
+  - cd role && molecule lint
 
 notifications:
   email:
