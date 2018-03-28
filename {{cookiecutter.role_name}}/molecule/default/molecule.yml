@@ -9,7 +9,10 @@ lint:
   name: yamllint
 
 platforms:
-  - name: Centos7
+{%- for os, versions in cookiecutter.platforms|dictsort %}
+{%- for version in versions %}
+{%- if os == "CentOS" and version == "7" %}
+  - name: CentOS7
     image: wilmardo/docker-centos-ansible:7
     capabilities:
       - SYS_ADMIN
@@ -17,12 +20,16 @@ platforms:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     tmpfs:
       - /run
+{% endif %}
 
-  - name: Centos6
+{%- if os == "CentOS" and version == "6" %}
+  - name: CentOS6
     image: centos:6
     ulimits:
       - memlock:60397977:60397977
+{% endif %}
 
+{%- if os == "Debian" and version == "stretch" %}
   - name: Debian9
     image: wilmardo/docker-debian-ansible:9
     capabilities:
@@ -32,7 +39,21 @@ platforms:
     tmpfs:
       - /run
       - /run/lock
+{% endif %}
 
+{%- if os == "Debian" and version == "jessie" %}
+  - name: Debian8
+    image: wilmardo/docker-debian-ansible:8
+    capabilities:
+      - SYS_ADMIN
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    tmpfs:
+      - /run
+      - /run/lock
+{% endif %}
+
+{%- if os == "Fedora" and version == "27" %}
   - name: Fedora27
     image: wilmardo/docker-fedora-ansible:27
     volumes:
@@ -40,7 +61,9 @@ platforms:
     tmpfs:
       - /run
       - /tmp
+{% endif %}
 
+{%- if os == "Fedora" and version == "26" %}
   - name: Fedora26
     image: wilmardo/docker-fedora-ansible:26
     volumes:
@@ -48,7 +71,9 @@ platforms:
     tmpfs:
       - /run
       - /tmp
+{% endif %}
 
+{%- if os == "Ubuntu" and version == "xenial" %}
   - name: Ubuntu1604
     image: wilmardo/docker-ubuntu-ansible:16.04
     capabilities:
@@ -58,9 +83,14 @@ platforms:
     tmpfs:
       - /run
       - /run/locks
+{% endif %}
 
+{%- if os == "Ubuntu" and version == "trusty" %}
   - name: Ubuntu1404
     image: wilmardo/docker-ubuntu-ansible:14.04
+{%- endif %}
+{%- endfor %}
+{%- endfor %}
 
 provisioner:
   name: ansible
