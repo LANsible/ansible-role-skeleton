@@ -9,11 +9,8 @@ install:
   - pip install molecule cookiecutter
 
 script:
-  - cookiecutter --no-input .
-  - cd role && molecule lint
-
-after_script:
-  - git stash --all
+  - cookiecutter --no-input --output-dir $TRAVIS_BUILD_DIR .
+  - cd $TRAVIS_BUILD_DIR/role && molecule lint
 
 notifications:
   email:
