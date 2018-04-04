@@ -9,13 +9,17 @@ lint:
   name: yamllint
 
 platforms:
+{%- if "6" in cookiecutter.platforms.CentOS %}
   - name: Centos6
     image: centos:6
     ulimits:
       - memlock:60397977:60397977
+{% endif %}
 
+{%- if "trusty" in cookiecutter.platforms.Ubuntu %}
   - name: Ubuntu1404
     image: wilmardo/docker-ubuntu-ansible:14.04
+{%- endif %}
 
 provisioner:
   name: ansible

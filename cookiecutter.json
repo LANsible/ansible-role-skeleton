@@ -9,13 +9,13 @@
       "7",
       "6"
     ],
-    "Fedora": [
-      "27",
-      "26"
-    ],
     "Debian": [
       "stretch",
       "jessie"
+    ],
+    "Fedora": [
+      "27",
+      "26"
     ],
     "Ubuntu": [
       "xenial",

@@ -9,6 +9,7 @@ lint:
   name: yamllint
 
 platforms:
+{%- if "stretch" in cookiecutter.platforms.Debian %}
   - name: Debian9
     image: wilmardo/docker-debian-ansible:9
     capabilities:
@@ -18,7 +19,9 @@ platforms:
     tmpfs:
       - /run
       - /run/lock
+{% endif %}
 
+{%- if "xenial" in cookiecutter.platforms.Ubuntu %}
   - name: Ubuntu1604
     image: wilmardo/docker-ubuntu-ansible:16.04
     capabilities:
@@ -28,6 +31,7 @@ platforms:
     tmpfs:
       - /run
       - /run/locks
+{%- endif %}
 
 provisioner:
   name: ansible
