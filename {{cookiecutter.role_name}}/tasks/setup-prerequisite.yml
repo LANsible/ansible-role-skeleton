@@ -15,7 +15,7 @@
   when: ansible_distribution == "CentOS"
 
 - name: Install prerequisites with dnf
-  dns:
+  dnf:
     name: "{{ {% endraw %}{{ cookiecutter.role_name }}{% raw %}_prerequisites }}"
     state: present
   when: ansible_distribution == "Fedora"
