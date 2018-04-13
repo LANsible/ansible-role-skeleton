@@ -89,10 +89,6 @@ platforms:
       - /run/locks
 {% endif %}
 
-{%- if os == "Ubuntu" and version == "trusty" %}
-  - name: Ubuntu1404
-    image: wilmardo/docker-ubuntu-ansible:14.04
-{%- endif %}
 {%- endfor %}
 {%- endfor %}
 
