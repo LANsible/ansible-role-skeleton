@@ -90,7 +90,6 @@ platforms:
 {% endif %}
 {%- endfor -%}
 {%- endfor %}
-
 provisioner:
   name: ansible
   options:
