@@ -88,7 +88,7 @@ platforms:
       - /run
       - /run/locks
 {% endif %}
-{%- endfor %}
+{%- endfor -%}
 {%- endfor %}
 
 provisioner:
