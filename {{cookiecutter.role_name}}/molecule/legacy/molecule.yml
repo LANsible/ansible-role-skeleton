@@ -25,7 +25,7 @@ platforms:
     image: lansible/debian:7
 {%- endif %}
 
-{%- if os == "Fedora" and version == "25" %}
+{%- if "25" in cookiecutter.platforms.Fedora %}
   - name: Fedora25
     image: lansible/fedora:25
 {% endif %}
