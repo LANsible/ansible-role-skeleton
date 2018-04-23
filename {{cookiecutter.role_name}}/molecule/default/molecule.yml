@@ -54,9 +54,8 @@ platforms:
   - name: Ubuntu1604
     image: lansible/ubuntu:16.04
 {% endif %}
+{%- endfor -%}
 {%- endfor %}
-{%- endfor %}
-
 provisioner:
   name: ansible
   options:
