@@ -10,18 +10,18 @@ driver:
 lint:
   name: yamllint
   options:
-      config-file: molecule/.yamllint
+    config-file: molecule/.yamllint
 
 platforms:
 {%- if "wheezy" in cookiecutter.platforms.Debian %}
   - name: Debian9
     image: lansible/debian:9
-{% endif %}
+{%- endif %}
 
 {%- if "xenial" in cookiecutter.platforms.Ubuntu %}
   - name: Ubuntu1604
     image: lansible/ubuntu:16.04
-{% endif %}
+{%- endif %}
 
 provisioner:
   name: ansible

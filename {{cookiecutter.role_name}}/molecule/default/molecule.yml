@@ -10,7 +10,7 @@ driver:
 lint:
   name: yamllint
   options:
-      config-file: molecule/.yamllint
+    config-file: molecule/.yamllint
 
 platforms:
 {%- for os, versions in cookiecutter.platforms|dictsort %}
