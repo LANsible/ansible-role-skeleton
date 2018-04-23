@@ -5,21 +5,28 @@
   "description": "Role to install xxxxx!",
   "min_ansible_version": "2.2",
   "platforms": {
+    "Alpine": [
+      "3.5",
+      "3.4"
+    ],
     "CentOS": [
       "7",
       "6"
     ],
     "Debian": [
       "stretch",
-      "jessie"
+      "jessie",
+      "wheezy"
     ],
     "Fedora": [
       "27",
-      "26"
+      "26",
+      "25"
     ],
     "Ubuntu": [
       "xenial",
-      "trusty"
+      "trusty",
+      "precise"
     ]
   },
   "galaxy_tags": {},

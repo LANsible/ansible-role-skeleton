@@ -1,37 +1,27 @@
 ---
 dependency:
   name: galaxy
+  options:
+    role-file: requirements.yml
 
 driver:
   name: docker
 
 lint:
   name: yamllint
+  options:
+      config-file: molecule/.yamllint
 
 platforms:
-{%- if "stretch" in cookiecutter.platforms.Debian %}
+{%- if os == "Debian" and version == "stretch" %}
   - name: Debian9
-    image: wilmardo/docker-debian-ansible:9
-    capabilities:
-      - SYS_ADMIN
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    tmpfs:
-      - /run
-      - /run/lock
+    image: lansible/debian:9
 {% endif %}
 
-{%- if "xenial" in cookiecutter.platforms.Ubuntu %}
+{%- if os == "Ubuntu" and version == "xenial" %}
   - name: Ubuntu1604
-    image: wilmardo/docker-ubuntu-ansible:16.04
-    capabilities:
-      - SYS_ADMIN
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    tmpfs:
-      - /run
-      - /run/locks
-{%- endif %}
+    image: lansible/ubuntu:16.04
+{% endif %}
 
 provisioner:
   name: ansible
@@ -41,10 +31,12 @@ provisioner:
     ANSIBLE_PYTHON_INTERPRETER: /usr/bin/python3
   lint:
     name: ansible-lint
+    options:
+      c: molecule/.ansible-lint
 
 scenario:
   name: python3
+
 verifier:
-  name: testinfra
-  lint:
-    name: flake8
+  name: goss
+  enabled: false

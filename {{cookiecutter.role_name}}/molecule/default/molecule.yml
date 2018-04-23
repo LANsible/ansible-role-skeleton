@@ -1,92 +1,58 @@
 ---
 dependency:
   name: galaxy
+  options:
+    role-file: requirements.yml
 
 driver:
   name: docker
 
 lint:
   name: yamllint
+  options:
+      config-file: molecule/.yamllint
 
 platforms:
 {%- for os, versions in cookiecutter.platforms|dictsort %}
 {%- for version in versions %}
-{%- if os == "CentOS" and version == "7" %}
-  - name: CentOS7
-    image: wilmardo/docker-centos-ansible:7
-    capabilities:
-      - SYS_ADMIN
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    tmpfs:
-      - /run
+{%- if os == "Alpine" and version == "3.5" %}
+  - name: Alpine35
+    image: lansible/alpine:3.5
 {% endif %}
 
-{%- if os == "CentOS" and version == "6" %}
-  - name: CentOS6
-    image: centos:6
-    ulimits:
-      - memlock:60397977:60397977
+{%- if os == "Alpine" and version == "3.4" %}
+  - name: Alpine34
+    image: lansible/alpine:3.4
+{% endif %}
+
+{%- if os == "CentOS" and version == "7" %}
+  - name: CentOS7
+    image: lansible/centos:7
 {% endif %}
 
 {%- if os == "Debian" and version == "stretch" %}
   - name: Debian9
-    image: wilmardo/docker-debian-ansible:9
-    capabilities:
-      - SYS_ADMIN
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    tmpfs:
-      - /run
-      - /run/lock
+    image: lansible/debian:9
 {% endif %}
 
 {%- if os == "Debian" and version == "jessie" %}
   - name: Debian8
-    image: wilmardo/docker-debian-ansible:8
-    capabilities:
-      - SYS_ADMIN
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    tmpfs:
-      - /run
-      - /run/lock
+    image: lansible/debian:8
 {% endif %}
 
 {%- if os == "Fedora" and version == "27" %}
   - name: Fedora27
-    image: wilmardo/docker-fedora-ansible:27
-    capabilities:
-      - SYS_ADMIN
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    tmpfs:
-      - /run
-      - /tmp
+    image: lansible/fedora:27
 {% endif %}
 
 {%- if os == "Fedora" and version == "26" %}
   - name: Fedora26
-    image: wilmardo/docker-fedora-ansible:26
-    capabilities:
-      - SYS_ADMIN
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    tmpfs:
-      - /run
-      - /tmp
+    image: lansible/fedora:26
 {% endif %}
 
 {%- if os == "Ubuntu" and version == "xenial" %}
   - name: Ubuntu1604
-    image: wilmardo/docker-ubuntu-ansible:16.04
-    capabilities:
-      - SYS_ADMIN
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    tmpfs:
-      - /run
-      - /run/locks
+    image: lansible/ubuntu:16.04
 {% endif %}
 {%- endfor %}
 {%- endfor %}
@@ -97,10 +63,12 @@ provisioner:
     v: true
   lint:
     name: ansible-lint
+    options:
+      c: molecule/.ansible-lint
 
 scenario:
   name: default
+
 verifier:
-  name: testinfra
-  lint:
-    name: flake8
+  name: goss
+  enabled: false

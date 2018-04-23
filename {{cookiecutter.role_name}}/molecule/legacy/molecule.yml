@@ -1,12 +1,16 @@
 ---
 dependency:
   name: galaxy
+  options:
+    role-file: requirements.yml
 
 driver:
   name: docker
 
 lint:
   name: yamllint
+  options:
+      config-file: molecule/.yamllint
 
 platforms:
 {%- if "6" in cookiecutter.platforms.CentOS %}
@@ -16,9 +20,24 @@ platforms:
       - memlock:60397977:60397977
 {% endif %}
 
+{%- if "wheezy" in cookiecutter.platforms.Debian %}
+  - name: Debian7
+    image: lansible/debian:7
+{%- endif %}
+
+{%- if os == "Fedora" and version == "25" %}
+  - name: Fedora25
+    image: lansible/fedora:25
+{% endif %}
+
 {%- if "trusty" in cookiecutter.platforms.Ubuntu %}
   - name: Ubuntu1404
-    image: wilmardo/docker-ubuntu-ansible:14.04
+    image: lansible/ubuntu:14.04
+{%- endif %}
+
+{%- if "precise" in cookiecutter.platforms.Ubuntu %}
+  - name: Ubuntu1204
+    image: lansible/ubuntu:12.04
 {%- endif %}
 
 provisioner:
@@ -27,10 +46,12 @@ provisioner:
     v: true
   lint:
     name: ansible-lint
+    options:
+      c: molecule/.ansible-lint
 
 scenario:
   name: legacy
+
 verifier:
-  name: testinfra
-  lint:
-    name: flake8
+  name: goss
+  enabled: false
