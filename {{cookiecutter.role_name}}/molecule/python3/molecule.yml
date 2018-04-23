@@ -13,12 +13,12 @@ lint:
       config-file: molecule/.yamllint
 
 platforms:
-{%- if os == "Debian" and version == "stretch" %}
+{%- if "wheezy" in cookiecutter.platforms.Debian %}
   - name: Debian9
     image: lansible/debian:9
 {% endif %}
 
-{%- if os == "Ubuntu" and version == "xenial" %}
+{%- if "xenial" in cookiecutter.platforms.Ubuntu %}
   - name: Ubuntu1604
     image: lansible/ubuntu:16.04
 {% endif %}
