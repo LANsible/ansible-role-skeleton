@@ -27,6 +27,9 @@ provisioner:
   name: ansible
   options:
     v: true
+  config_options:
+    defaults:
+      callback_whitelist: profile_tasks
   env:
     ANSIBLE_PYTHON_INTERPRETER: /usr/bin/python3
   lint:
