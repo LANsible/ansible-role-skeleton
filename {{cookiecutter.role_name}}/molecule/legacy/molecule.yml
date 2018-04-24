@@ -38,7 +38,7 @@ platforms:
 {%- if "precise" in cookiecutter.platforms.Ubuntu %}
   - name: Ubuntu1204
     image: lansible/ubuntu:12.04
-{% endif %}
+{%- endif %}
 
 provisioner:
   name: ansible
