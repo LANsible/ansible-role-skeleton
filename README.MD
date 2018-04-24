@@ -1,5 +1,7 @@
 # Cookiecutter Ansible
 
+[![Build Status](https://travis-ci.org/LANsible/ansible-role-skeleton.svg?branch=master)](https://travis-ci.org/LANsible/ansible-role-skeleton)
+
 Cookiecutter template for a Ansible role with Molecule testing.
 
 ## Features
