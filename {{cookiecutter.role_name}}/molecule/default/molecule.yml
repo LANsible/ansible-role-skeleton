@@ -10,7 +10,7 @@ driver:
 lint:
   name: yamllint
   options:
-    config-file: molecule/.yamllint
+    config-file: molecule/_rules/.yamllint
 
 platforms:
 {%- for os, versions in cookiecutter.platforms|dictsort %}
@@ -63,7 +63,7 @@ provisioner:
   lint:
     name: ansible-lint
     options:
-      c: molecule/.ansible-lint
+      c: molecule/_rules/.ansible-lint
 
 scenario:
   name: default
