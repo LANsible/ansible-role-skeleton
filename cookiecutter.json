@@ -3,7 +3,7 @@
   "github_user": "wilmardo",
   "role_name": "role",
   "description": "Role to install xxxxx!",
-  "min_ansible_version": "2.2",
+  "min_ansible_version": "2.3",
   "platforms": {
     "Alpine": [
       "3.5",
