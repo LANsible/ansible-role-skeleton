@@ -15,9 +15,7 @@ lint:
 platforms:
 {%- if "6" in cookiecutter.platforms.CentOS %}
   - name: Centos6
-    image: centos:6
-    ulimits:
-      - memlock:60397977:60397977
+    image: lansible/centos:6
 {% endif %}
 
 {%- if "wheezy" in cookiecutter.platforms.Debian %}
