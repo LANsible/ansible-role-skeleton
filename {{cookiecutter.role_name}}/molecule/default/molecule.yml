@@ -10,48 +10,53 @@ driver:
 lint:
   name: yamllint
   options:
-    config-file: /home/ansible/ansible-main/molecule-rules/yaml-lint.yml
+    config-file: ${DEV_MOLECULE_RULES}/yaml-lint.yml
 
 platforms:
 {%- for os, versions in cookiecutter.platforms|dictsort %}
 {%- for version in versions %}
 {%- if os == "Alpine" and version == "3.5" %}
-  - name: Alpine35
+  - name: {{ cookiecutter.role_name }}-Alpine35
     image: lansible/alpine:3.5
 {% endif %}
 
 {%- if os == "Alpine" and version == "3.4" %}
-  - name: Alpine34
+  - name: {{ cookiecutter.role_name }}-Alpine34
     image: lansible/alpine:3.4
 {% endif %}
 
 {%- if os == "CentOS" and version == "7" %}
-  - name: CentOS7
+  - name: {{ cookiecutter.role_name }}-CentOS7
     image: lansible/centos:7
 {% endif %}
 
 {%- if os == "Debian" and version == "stretch" %}
-  - name: Debian9
+  - name: {{ cookiecutter.role_name }}-Debian9
     image: lansible/debian:9
 {% endif %}
 
 {%- if os == "Debian" and version == "jessie" %}
-  - name: Debian8
+  - name: {{ cookiecutter.role_name }}-Debian8
     image: lansible/debian:8
 {% endif %}
 
 {%- if os == "Fedora" and version == "27" %}
-  - name: Fedora27
+  - name: {{ cookiecutter.role_name }}-Fedora27
     image: lansible/fedora:27
 {% endif %}
 
 {%- if os == "Fedora" and version == "26" %}
-  - name: Fedora26
+  - name: {{ cookiecutter.role_name }}-Fedora26
+    image: lansible/fedora:26
+{% endif %}
+
+{%- if os == "Fedora" and version == "25" %}
+  - name: {{ cookiecutter.role_name }}-Fedora25
     image: lansible/fedora:26
 {% endif %}
 
 {%- if os == "Ubuntu" and version == "xenial" %}
-  - name: Ubuntu1604
+  - name: {{ cookiecutter.role_name }}-Ubuntu1604
     image: lansible/ubuntu:16.04
 {% endif %}
 {%- endfor -%}
@@ -66,7 +71,7 @@ provisioner:
   lint:
     name: ansible-lint
     options:
-      c: /home/ansible/ansible-main/molecule-rules/ansible-lint.yml
+      c: ${DEV_MOLECULE_RULES}/ansible-lint.yml
 
 scenario:
   name: default
