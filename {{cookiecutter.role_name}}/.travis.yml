@@ -25,10 +25,14 @@ addons:
     packages:
       - docker-ce
 
+install:
+  - pip install cookiecutter
+
 script:
   - echo DOCKER_OPTS="-H tcp://127.0.0.1:2375" >> /etc/default/docker
   - sudo service docker restart
-  - docker run --net=host -it -v $(pwd):/data/$(basename ~+) -w /data/$(basename ~+) lansible/ansible-dev-container:$TAG molecule converge
+  - cookiecutter --no-input .
+  - cd role && docker run --net=host -it -v $(pwd):/data/$(basename ~+) -w /data/$(basename ~+) lansible/ansible-dev-container:$TAG molecule lint
 
 notifications:
 #  webhooks: https://galaxy.ansible.com/api/v1/notifications/
