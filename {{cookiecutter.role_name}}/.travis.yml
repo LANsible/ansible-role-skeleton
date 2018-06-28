@@ -11,10 +11,9 @@ env:
 
 matrix:
   include:
-    - env: TAG=2.3  # 2.3.x bugs and security
     - env: TAG=2.4  # 2.4.x bugs and security
     - env: TAG=2.5  # 2.4.x bugs and security
-    - env: TAG:2.6  # Development
+#    - env: TAG:2.6  # Development
 
 services:
   - docker
