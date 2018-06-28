@@ -6,11 +6,13 @@ cache:
   pip: true
 
 install:
-  - pip install molecule cookiecutter
+  - pip install cookiecutter
 
 script:
+  - echo DOCKER_OPTS="-H tcp://127.0.0.1:2375" >> /etc/default/docker
+  - sudo service docker restart
   - cookiecutter --no-input .
-  - cd role && molecule lint
+  - cd role && docker run --net=host -it -v $(pwd):/data/$(basename ~+) -w /data/$(basename ~+) lansible/ansible-dev-container:$TAG molecule converge
 
 notifications:
   email:
