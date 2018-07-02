@@ -24,7 +24,6 @@ before_script:
 
 script:
   - cookiecutter --no-input .
-  - cd role && docker run --net=host -it -v $(pwd):/data/$(basename ~+) -w /data/$(basename ~+) lansible/ansible-dev-container molecule lint
   - docker run --net=host -it -v $(pwd):/data/$(basename ~+) -w /data/$(basename ~+) lansible/ansible-dev-container molecule converge
 
 notifications:
