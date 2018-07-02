@@ -5,6 +5,10 @@ sudo: required
 cache:
   pip: true
 
+env:
+  global:
+    - fast_finish: true
+
 services:
   - docker
 
@@ -15,12 +19,9 @@ addons:
     packages:
       - docker-ce
 
-install:
-  - pip install cookiecutter
-
 before_script:
-  - sudo echo DOCKER_OPTS="-H tcp://127.0.0.1:2375" >> /etc/default/docker
-  - sudo service docker restart
+  - sudo service docker stop
+  - sudo dockerd -H unix:///var/run/docker.sock -H tcp://127.0.0.1:2375 </dev/null &>/dev/null &
 
 script:
   - cookiecutter --no-input .
