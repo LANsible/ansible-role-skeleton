@@ -8,11 +8,14 @@ cache:
 install:
   - pip install cookiecutter
 
-script:
+before_script:
   - sudo echo DOCKER_OPTS="-H tcp://127.0.0.1:2375" >> /etc/default/docker
   - sudo service docker restart
+
+script:
   - cookiecutter --no-input .
-  - cd role && docker run --net=host -it -v $(pwd):/data/$(basename ~+) -w /data/$(basename ~+) lansible/ansible-dev-container molecule converge
+  - cd role && docker run --net=host -it -v $(pwd):/data/$(basename ~+) -w /data/$(basename ~+) lansible/ansible-dev-container molecule lint
+  - docker run --net=host -it -v $(pwd):/data/$(basename ~+) -w /data/$(basename ~+) lansible/ansible-dev-container molecule converge
 
 notifications:
   email:
