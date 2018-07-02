@@ -19,13 +19,16 @@ addons:
     packages:
       - docker-ce
 
+install:
+  - pip install cookiecutter
+
 before_script:
   - sudo service docker stop
   - sudo dockerd -H unix:///var/run/docker.sock -H tcp://127.0.0.1:2375 </dev/null &>/dev/null &
 
 script:
   - cookiecutter --no-input .
-  - docker run --net=host -it -v $(pwd):/data/$(basename ~+) -w /data/$(basename ~+) lansible/ansible-dev-container molecule converge
+  - cd role && docker run --net=host -it -v $(pwd):/data/$(basename ~+) -w /data/$(basename ~+) lansible/ansible-dev-container molecule converge
 
 notifications:
   email:
