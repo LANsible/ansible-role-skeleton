@@ -1,4 +1,5 @@
 ---
+{% raw %}
 - name: Prepare
   hosts: all
   gather_facts: false
@@ -52,3 +53,4 @@
           - curl
           - sudo
         state: present
+{% end raw %}

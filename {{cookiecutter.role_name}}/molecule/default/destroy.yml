@@ -1,5 +1,5 @@
 ---
-
+{% raw %}
 - name: Destroy
   hosts: localhost
   connection: local
@@ -12,3 +12,4 @@
         state: absent
         force_stop: "{{ item.force_stop | default(true) }}"
       with_items: "{{ molecule_yml.platforms }}"
+{% end raw %}
