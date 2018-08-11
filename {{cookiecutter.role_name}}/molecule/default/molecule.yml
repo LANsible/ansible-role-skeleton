@@ -5,7 +5,7 @@ dependency:
     role-file: requirements.yml
 
 driver:
-  name: docker
+  name: lxd
 
 lint:
   name: yamllint
@@ -15,49 +15,79 @@ lint:
 platforms:
 {%- for os, versions in cookiecutter.platforms|dictsort %}
 {%- for version in versions %}
+{%- if os == "Alpine" and version == "3.8" %}
+  - name: {{ cookiecutter.role_name }}-Alpine38
+    alias: alpine/3.8/amd64
+{% endif %}
+
+{%- if os == "Alpine" and version == "3.7" %}
+  - name: {{ cookiecutter.role_name }}-Alpine37
+    alias: alpine/3.7/amd64
+{% endif %}
+
+{%- if os == "Alpine" and version == "3.6" %}
+  - name: {{ cookiecutter.role_name }}-Alpine36
+    alias: alpine/3.6/amd64
+{% endif %}
+
 {%- if os == "Alpine" and version == "3.5" %}
   - name: {{ cookiecutter.role_name }}-Alpine35
-    image: lansible/alpine:3.5
+    alias: alpine/3.5/amd64
 {% endif %}
 
 {%- if os == "Alpine" and version == "3.4" %}
   - name: {{ cookiecutter.role_name }}-Alpine34
-    image: lansible/alpine:3.4
+    alias: alpine/3.4/amd64
 {% endif %}
 
 {%- if os == "CentOS" and version == "7" %}
   - name: {{ cookiecutter.role_name }}-CentOS7
-    image: lansible/centos:7
+    alias: centos/7/amd64
+{% endif %}
+
+{%- if os == "CentOS" and version == "6" %}
+  - name: {{ cookiecutter.role_name }}-CentOS6
+    alias: centos/6/amd64
 {% endif %}
 
 {%- if os == "Debian" and version == "stretch" %}
   - name: {{ cookiecutter.role_name }}-Debian9
-    image: lansible/debian:9
+    alias: debian/stretch/amd64
 {% endif %}
 
 {%- if os == "Debian" and version == "jessie" %}
   - name: {{ cookiecutter.role_name }}-Debian8
-    image: lansible/debian:8
+    alias: debian/jessie/amd64
+{% endif %}
+
+{%- if os == "Debian" and version == "wheezy" %}
+  - name: {{ cookiecutter.role_name }}-Debian7
+    alias: debian/wheezy/amd64
 {% endif %}
 
 {%- if os == "Fedora" and version == "27" %}
   - name: {{ cookiecutter.role_name }}-Fedora27
-    image: lansible/fedora:27
+    alias: fedora/27/amd64
 {% endif %}
 
 {%- if os == "Fedora" and version == "26" %}
   - name: {{ cookiecutter.role_name }}-Fedora26
-    image: lansible/fedora:26
+    alias: fedora/26/amd64
 {% endif %}
 
-{%- if os == "Fedora" and version == "25" %}
-  - name: {{ cookiecutter.role_name }}-Fedora25
-    image: lansible/fedora:26
+{%- if os == "Ubuntu" and version == "bionic" %}
+  - name: {{ cookiecutter.role_name }}-Ubuntu1804
+    alias: ubuntu/bionic/amd64
 {% endif %}
 
 {%- if os == "Ubuntu" and version == "xenial" %}
   - name: {{ cookiecutter.role_name }}-Ubuntu1604
-    image: lansible/ubuntu:16.04
+    alias: ubuntu/xenial/amd64
+{% endif %}
+
+{%- if os == "Ubuntu" and version == "trusty" %}
+  - name: {{ cookiecutter.role_name }}-Ubuntu1404
+    alias: ubuntu/trusty/amd64
 {% endif %}
 {%- endfor -%}
 {%- endfor %}
