@@ -19,8 +19,16 @@ addons:
     packages:
       - docker-ce
 
+before_install:
+  - sudo apt-get -qq update && sudo apt-get remove -y lxd
+
 install:
   - pip install cookiecutter
+  - sudo apt-get -y install snapd
+  - sudo snap install lxd
+  - sudo bash -c 'echo PATH=/snap/bin:$PATH >> /etc/environment'
+  - while [ ! -S /var/snap/lxd/common/lxd/unix.socket ]; do echo "Waiting for LXD socket...";sleep 0.2;done;
+  - sudo lxd init --auto
 
 before_script:
   - sudo service docker stop
@@ -28,7 +36,7 @@ before_script:
 
 script:
   - cookiecutter --no-input .
-  - cd role && docker run --net=host -it -v $(pwd):/data/$(basename ~+) -w /data/$(basename ~+) lansible/ansible-dev-container molecule converge
+  - cd role && docker run --userns=host -it -v $(pwd):/data/$(basename ~+) -v /var/snap/lxd/common/lxd/unix.socket:/var/lib/lxd/unix.socket -w /data/$(basename ~+) lansible/ansible-dev-container:latest molecule converge
 
 notifications:
   email:
