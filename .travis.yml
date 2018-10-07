@@ -1,9 +1,7 @@
 ---
 dist: trusty
-language: python
-sudo: required
-cache:
-  pip: true
+language: minimal
+sudo: false
 
 env:
   global:
@@ -19,32 +17,21 @@ addons:
     packages:
       - docker-ce
 
-before_install:
-  - sudo apt-get -qq update && sudo apt-get remove -y lxd
-
-install:
-  - pip install cookiecutter
-  - sudo apt-get -y install snapd
-  - sudo snap install lxd
-  - sudo bash -c 'echo PATH=/snap/bin:$PATH >> /etc/environment'
-  - while [ ! -S /var/snap/lxd/common/lxd/unix.socket ]; do echo "Waiting for LXD socket...";sleep 0.2;done;
-  - sudo lxd init --auto
-
-# Not needed but left for reference for testing with Docker
-#before_script:
-#  - sudo service docker stop
-#  - sudo dockerd -H unix:///var/run/docker.sock -H tcp://127.0.0.1:2375 </dev/null &>/dev/null &
-
 script:
-  - cookiecutter --no-input .
-  - cd role/
   - |
     docker run -it -v $(pwd):/data/$(basename ~+) \
-    -v /var/snap/lxd/common/lxd/unix.socket:/var/lib/lxd/unix.socket \
     -w /data/$(basename ~+) \
     -e LOCAL_USER_ID=`id -u $USER` \
     -e LOCAL_GROUP_ID=`getent group lxd | cut -d: -f3` \
-    lansible/ansible-dev-container:latest molecule test
+    lansible/ansible-dev-container:latest \
+    molecule init template --url https://github.com/LANsible/ansible-role-skeleton --no-input
+  - cd role_name/
+  - |
+    docker run -it -v $(pwd):/data/$(basename ~+) \
+    -w /data/$(basename ~+) \
+    -e LOCAL_USER_ID=`id -u $USER` \
+    -e LOCAL_GROUP_ID=`getent group lxd | cut -d: -f3` \
+    lansible/ansible-dev-container:latest molecule lint
 
 notifications:
   email:
