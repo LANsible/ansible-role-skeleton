@@ -11,10 +11,10 @@ env:
 
 matrix:
   include:
-    - env: TAG=2.4  # 2.4.x security fixes
-    - env: TAG=2.5  # 2.5.x bugs and security
-    - env: TAG=2.6  # 2.6.x bugs and security
-    - env: TAG=2.7  # Development
+    - env: TAG=2.5    # 2.5.x security
+    - env: TAG=2.6    # 2.6.x bugs and security
+    - env: TAG=2.7    # 2.7.x bugs and security
+    - env: TAG=devel  # Devel branch source install
 
 services:
   - docker
@@ -37,7 +37,13 @@ install:
   - sudo lxd init --auto
 
 script:
-  - docker run --userns=host -it -v $(pwd):/data/$(basename ~+) -v /var/snap/lxd/common/lxd/unix.socket:/var/lib/lxd/unix.socket -w /data/$(basename ~+) lansible/ansible-dev-container:$TAG molecule test
+  - |
+    docker run -it -v $(pwd):/data/$(basename ~+) \
+    -v /var/snap/lxd/common/lxd/unix.socket:/var/lib/lxd/unix.socket \
+    -w /data/$(basename ~+) \
+    -e LOCAL_USER_ID=`id -u $USER` \
+    -e LOCAL_GROUP_ID=`getent group lxd | cut -d: -f3` \
+    lansible/ansible-dev-container:$TAG molecule test
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

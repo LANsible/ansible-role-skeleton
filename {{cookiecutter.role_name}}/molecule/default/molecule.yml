@@ -17,77 +17,92 @@ platforms:
 {%- for version in versions %}
 {%- if os == "Alpine" and version == "3.8" %}
   - name: {{ cookiecutter.role_name }}-Alpine38
-    alias: alpine/3.8/amd64
+    source:
+      alias: alpine/3.8/amd64
 {% endif %}
 
 {%- if os == "Alpine" and version == "3.7" %}
   - name: {{ cookiecutter.role_name }}-Alpine37
-    alias: alpine/3.7/amd64
+    source:
+      alias: alpine/3.7/amd64
 {% endif %}
 
 {%- if os == "Alpine" and version == "3.6" %}
   - name: {{ cookiecutter.role_name }}-Alpine36
-    alias: alpine/3.6/amd64
+    source:
+      alias: alpine/3.6/amd64
 {% endif %}
 
 {%- if os == "Alpine" and version == "3.5" %}
   - name: {{ cookiecutter.role_name }}-Alpine35
-    alias: alpine/3.5/amd64
+    source:
+      alias: alpine/3.5/amd64
 {% endif %}
 
 {%- if os == "Alpine" and version == "3.4" %}
   - name: {{ cookiecutter.role_name }}-Alpine34
-    alias: alpine/3.4/amd64
+    source:
+      alias: alpine/3.4/amd64
 {% endif %}
 
 {%- if os == "CentOS" and version == "7" %}
   - name: {{ cookiecutter.role_name }}-CentOS7
-    alias: centos/7/amd64
+    source:
+      alias: centos/7/amd64
 {% endif %}
 
 {%- if os == "CentOS" and version == "6" %}
   - name: {{ cookiecutter.role_name }}-CentOS6
-    alias: centos/6/amd64
+    source:
+      alias: centos/6/amd64
 {% endif %}
 
 {%- if os == "Debian" and version == "stretch" %}
   - name: {{ cookiecutter.role_name }}-Debian9
-    alias: debian/stretch/amd64
+    source:
+      alias: debian/stretch/amd64
 {% endif %}
 
 {%- if os == "Debian" and version == "jessie" %}
   - name: {{ cookiecutter.role_name }}-Debian8
-    alias: debian/jessie/amd64
+    source:
+      alias: debian/jessie/amd64
 {% endif %}
 
 {%- if os == "Debian" and version == "wheezy" %}
   - name: {{ cookiecutter.role_name }}-Debian7
-    alias: debian/wheezy/amd64
+    source:
+      alias: debian/wheezy/amd64
 {% endif %}
 
 {%- if os == "Fedora" and version == "27" %}
   - name: {{ cookiecutter.role_name }}-Fedora27
-    alias: fedora/27/amd64
+    source:
+      alias: fedora/27/amd64
 {% endif %}
 
 {%- if os == "Fedora" and version == "26" %}
   - name: {{ cookiecutter.role_name }}-Fedora26
-    alias: fedora/26/amd64
+    source:
+      alias: fedora/26/amd64
 {% endif %}
 
 {%- if os == "Ubuntu" and version == "bionic" %}
   - name: {{ cookiecutter.role_name }}-Ubuntu1804
-    alias: ubuntu/bionic/amd64
+    source:
+      alias: ubuntu/bionic/amd64
 {% endif %}
 
 {%- if os == "Ubuntu" and version == "xenial" %}
   - name: {{ cookiecutter.role_name }}-Ubuntu1604
-    alias: ubuntu/xenial/amd64
+    source:
+      alias: ubuntu/xenial/amd64
 {% endif %}
 
 {%- if os == "Ubuntu" and version == "trusty" %}
   - name: {{ cookiecutter.role_name }}-Ubuntu1404
-    alias: ubuntu/trusty/amd64
+    source:
+      alias: ubuntu/trusty/amd64
 {% endif %}
 {%- endfor -%}
 {%- endfor %}
@@ -103,6 +118,12 @@ provisioner:
     options:
       c: ${DEV_MOLECULE_RULES}/ansible-lint.yml
 
+verifier:
+  name: goss
+  lint:
+    name: yamllint
+    options:
+      config-file: ${DEV_MOLECULE_RULES}/yaml-lint.yml
+
 scenario:
   name: default
-
