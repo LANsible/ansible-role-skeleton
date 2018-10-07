@@ -10,13 +10,6 @@ env:
 services:
   - docker
 
-addons:
-  apt:
-    sources:
-      - docker-trusty
-    packages:
-      - docker-ce
-
 script:
   - |
     docker run -it -v $(pwd):/data/$(basename ~+) \
